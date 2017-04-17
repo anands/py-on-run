@@ -6,12 +6,15 @@ class FileWatch(object):
         self._cached_stamp = os.stat(self.filename).st_mtime
         
     def isChanged(self):
-        stamp = os.stat(self.filename).st_mtime
-    	if stamp != self._cached_stamp:
-            self._cached_stamp = stamp
-            return True
-        else:
-        	return False
+        try:
+            stamp = os.stat(self.filename).st_mtime
+            if stamp != self._cached_stamp:
+                self._cached_stamp = stamp
+                return True
+            else:
+                return False
+        except Exception:
+            print "Exception"
 
 fileWatch = FileWatch(sys.argv[1])
 while True:
